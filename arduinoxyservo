@@ -1,0 +1,44 @@
+#include <Servo.h>
+
+Servo xserv;
+Servo yserv;
+
+
+int xpos = 0;    
+int ypos = 0;
+int x = 0;
+
+int laserPin = 5;
+int laserState = HIGH;
+void setup() {
+  xserv.attach(9); // x-axis servo attach on pin 9
+  yserv.attach(8);// y-axis servo attatch on pin 10   
+  pinMode(laserPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(laserPin, laserState);
+  //delay(15);
+  if(x == 0){
+  
+  for (xpos = 0, ypos = 0; xpos <= 180, ypos <= 180; xpos += 1, ypos += 1) { // goes from 0 degrees to 180 degrees
+    xserv.write(xpos);// tell x-axis servo to go to position in variable 'xpos'
+    yserv.write(ypos);// tell y-axis servo to go to position in variable 'ypos'
+    delay(15);                       // waits 15ms for the servo to reach the position
+  }
+  for (xpos = 180, ypos = 180; xpos >= 0, ypos >= 0; xpos -= 1, ypos -= 1) { // goes from 180 degrees to 0 degrees
+    xserv.write(xpos);
+    yserv.write(ypos);              
+    delay(15);                       // waits 15ms for the servo to reach the position
+  }
+  }
+else if(x == 1){
+    xpos = random(180);
+    ypos = random(180);
+    xserv.write(xpos);// tell x-axis servo to go to position in variable 'xpos'
+    yserv.write(ypos);// tell y-axis servo to go to position in variable 'ypos'
+    delay(15);                       // waits 15ms for the servo to reach the position
+  }
+
+
+}
