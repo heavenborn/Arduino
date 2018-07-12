@@ -1,0 +1,124 @@
+#include <NeoPixelBus.h>
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
+const uint16_t PixelCount = 8; 
+const uint8_t PixelPin = 2;  
+
+#define colorSaturation 128
+NeoPixelBus<NeoGrbFeature, Neo800KbpsMethod> strip(PixelCount, PixelPin);
+char auth[] = "";
+char ssid[] = "";
+char pass[] = "";
+
+
+BLYNK_WRITE(V0){
+  int r = param.asInt();
+  RgbColor red(r, 0, 0);
+  strip.SetPixelColor(0, red);
+  strip.Show(); 
+  
+  }
+BLYNK_WRITE(V1){
+  int g = param.asInt();
+  RgbColor green(0, g, 0);
+  strip.SetPixelColor(1, green);
+  strip.Show();
+  }
+BLYNK_WRITE(V2){
+  int b = param.asInt();
+  RgbColor blue(0, 0, b);
+  strip.SetPixelColor(2, blue);
+  strip.Show();
+  }
+BLYNK_WRITE(V3){
+  switch (param.asInt())
+  {
+    case 1: // Item 1
+      
+      
+      
+      
+      
+      for (int i = 0; i < 8; i++)
+  {
+    RgbColor white(255, 255, 255);
+    strip.SetPixelColor(i, white);
+    
+  }
+    strip.Show();
+      
+      
+      
+      break;
+    
+    
+    
+    
+    
+    case 2: // Item 2
+
+
+
+
+        strip.Begin();
+        strip.Show();
+
+      for (int i = 0; i < 8; i++)
+  {
+    strip.SetPixelColor(i, green);
+    
+  }
+      strip.Show();
+      
+      
+      break;
+    
+    
+    
+    
+    
+    
+    case 3: // Item 3
+
+            
+      for (int i = 0; i < 8; i++)
+  {
+    RgbColor white(255, 255, 255);
+    strip.SetPixelColor(i, white);
+    
+  }
+    strip.Show();
+      
+      
+      
+
+      
+      break;
+    default:
+        
+        strip.Begin();
+        strip.Show();
+  }
+}
+  
+  
+  }
+
+
+
+
+void setup() {
+  // put your setup code here, to run once:
+strip.Begin();
+strip.Show();
+Blynk.begin(auth, ssid, pass);
+
+}
+
+void loop() {
+  Blynk.run();
+  
+  
+ 
+
+}
